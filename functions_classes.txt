@@ -1,0 +1,70 @@
+//Higher-Order Functions - take functions as an argument and return functions as an output
+    //third argument is a function that can take any operator e.g +, -, min,max etc
+    def math(x: Double, y: Double, f: (Double, Double) => Double): Double = f(x, y);
+
+    def math1(x: Double, y: Double, z: Double, f: (Double, Double) => Double): Double = f(f(x, y), z);
+
+    println("------------Higher-Order Functions----------------------------")
+    val output = math(50, 20, (x, y) => x + y); //third
+    println(output);
+
+    val output1 = math1(50, 20, 10, (x, y) => x min y); //third
+    println(output1);
+
+    val output2 = math1(50, 20, 10, _ max _); //using wildcard also _+_ (for +)
+    println(output2);
+
+
+    // Scala - Partially applied functions
+    val sum = (a: Int, b: Int, c: Int) => a + b + c
+    val f = sum(10, 20, _ : Int);
+    val h = sum(10, _ : Int, _ : Int);
+
+    println("------------ Scala - Partially applied functions----------------------------")
+    println(f(100));
+    println(h(100, 200));
+
+    val date = new Date;
+    val newLog = log(date, _:String);
+    newLog("The message 1");
+    newLog("The message 2");
+    newLog("The message 3");
+    newLog("The message 4");
+
+
+    //Closure : functions which uses one or more variables declared outside the functions
+    var number = 10;
+    val add2 = (x: Int) => {
+      x + number;
+    }
+
+    println("------------ Closures----------------------------")
+    number = 100;
+    println(add2(20));
+    println(number)
+
+
+    //Currying : technique of transforming a function that takes multiple arguments into a functions that takes a single
+    //argument
+    def add3(x:Int,y:Int) = x + y
+    def add4 (x: Int) = (y : Int) => x + y;
+    def add5 (x: Int) (y : Int) = x + y;
+
+    println("------------ Currying----------------------------")
+    println(add3(20,10));
+    println(add4(20)(10));
+    val sum40 = add4(40);
+    println(sum40(100));
+    println(add5(100)(200));
+    val sum50 = add5(50)_;//use wildcard
+    println(sum50(400))
+
+
+  }
+
+  // Scala - Partially applied functions-
+  def log(date : Date, message: String) = {
+    println(date + " " + message);
+  }
+
+}
